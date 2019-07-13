@@ -1,0 +1,15 @@
+.fullwidth {
+    width: 100%
+}
+
+.col {
+    padding-left: 0cm;
+    padding-right: 0cm;
+}
+
+textarea.textarea-autosize {
+    height: 2.25rem;
+    min-height: 2.25rem;
+    resize: none;
+    overflow-y:hidden;
+}
