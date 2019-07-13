@@ -2,6 +2,7 @@
   "name": "minecraftfunctiongenerator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ReySi.github.io/minecraftfunctiongenerator",
   "dependencies": {
     "@types/file-saver": "^2.0.1",
     "@types/jest": "^24.0.15",
@@ -12,6 +13,7 @@
     "@types/reactstrap": "^8.0.1",
     "bootstrap": "^4.3.1",
     "file-saver": "^2.0.2",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-copy-to-clipboard": "^5.0.1",
@@ -25,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
