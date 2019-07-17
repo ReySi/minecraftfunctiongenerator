@@ -53,9 +53,15 @@ class Output extends Component<OutputProps, OutputState> {
   }
 
   onDownload() {
-    console.log(this.state.outputText);
-    var blob = new Blob([this.state.outputText], {type: "text/plain;charset=utf-8"});
-    saveAs(blob, 'function.mcfncn');
+    let prefix = ''
+    if (this.props.buyOrSell === 'buy') {
+      prefix = 'b'
+    } else {
+      prefix = 's'
+    }
+    const fileName = prefix + '_' + this.props.itemNumber + 'mcfunction';
+    var fileContent = new Blob([this.state.outputText], {type: "text/plain;charset=utf-8"});
+    saveAs(fileContent, fileName);
   }
 
   render() {
