@@ -59,7 +59,7 @@ class Output extends Component<OutputProps, OutputState> {
     } else {
       prefix = 's'
     }
-    const fileName = prefix + '_' + this.props.itemNumber + 'mcfunction';
+    const fileName = prefix + '_' + this.props.itemNumber + '.' + 'mcfunction';
     var fileContent = new Blob([this.state.outputText], {type: "text/plain;charset=utf-8"});
     saveAs(fileContent, fileName);
   }
