@@ -28,7 +28,7 @@ class Output extends Component<OutputProps, OutputState> {
     this.calculateOutput = this.calculateOutput.bind(this);
     this.onReturn = this.onReturn.bind(this);
     this.onDownload = this.onDownload.bind(this);
-    this.state = {outputText: ''};
+    this.state = {outputText: this.calculateOutput(this.props.buyOrSell)};
 }
 
   calculateOutput(buyorsell: string) {
@@ -59,20 +59,19 @@ class Output extends Component<OutputProps, OutputState> {
     } else {
       prefix = 's'
     }
-    const fileName = prefix + '_' + this.props.itemNumber + '.' + 'mcfunction';
+    const fileName = prefix + '_' + this.props.itemNumber + '.mcfunction';
     var fileContent = new Blob([this.state.outputText], {type: "text/plain;charset=utf-8"});
     saveAs(fileContent, fileName);
   }
 
   render() {
-    var outputtext = this.calculateOutput(this.props.buyOrSell);
     return (
         <div>
             <Container fluid>
                 <Row>
                     <FormGroup id="textform" className="fullwidth">
                         <Label for="outputtext">Output:</Label>
-                        <Input type="textarea" name="text" id="outputtext" defaultValue={outputtext} rows="19" onChange={e => this.setState({ outputText: e.target.value })}></Input>
+                        <Input type="textarea" name="text" id="outputtext" defaultValue={this.state.outputText} rows="19" onChange={e => this.setState({ outputText: e.target.value })}></Input>
                     </FormGroup>
                 </Row>
                 <Row>
