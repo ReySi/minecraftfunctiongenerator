@@ -2,10 +2,14 @@ import './Output.css'
 import React, { Component } from 'react';
 import {FormGroup, Label, Input, Button, Row, Container, Col} from 'reactstrap';
 import { saveAs } from 'file-saver';
+import sellFunctionGenerator from './sellFunctionGenerator';
+import buyFunctionGenerator from './buyFunctiongenerator';
 
 interface OutputProps {
-  buyorsell: string;
-  itemname: string;
+  buyOrSell: string;
+  itemName: string;
+  itemMinecraftName: string;
+  itemNumber: string;
   amount: string;
   taler: string;
   groschen: string;
@@ -27,13 +31,21 @@ class Output extends Component<OutputProps, OutputState> {
     this.state = {outputText: ''};
 }
 
-  calculateOutput() {
-      var result = this.props.buyorsell + ' ' +
-        this.props.itemname + ' ' +
-        this.props.amount + ' ' +
-        this.props.taler + ' ' +
-        this.props.groschen
-      return result;
+  calculateOutput(buyorsell: string) {
+    const result = (buyorsell === "buy")
+      ? buyFunctionGenerator(this.props.itemName,
+        this.props.itemMinecraftName,
+        this.props.itemNumber,
+        this.props.amount,
+        this.props.taler,
+        this.props.groschen)
+      : sellFunctionGenerator(this.props.itemName,
+        this.props.itemMinecraftName,
+        this.props.itemNumber,
+        this.props.amount,
+        this.props.taler,
+        this.props.groschen)
+    return result;
   }
 
   onReturn() {
@@ -47,7 +59,7 @@ class Output extends Component<OutputProps, OutputState> {
   }
 
   render() {
-    var outputtext = this.calculateOutput();
+    var outputtext = this.calculateOutput(this.props.buyOrSell);
     return (
         <div>
             <Container fluid>

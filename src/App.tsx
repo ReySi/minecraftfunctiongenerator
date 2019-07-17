@@ -6,8 +6,10 @@ import {Container, Col, Row} from 'reactstrap'
 import './App.css'
 
 interface AppState {
-  buyorsell: string;
-  itemname: string;
+  buyOrSell: string;
+  itemName: string;
+  itemMinecraftName : string;
+  itemNumber: string;
   amount: string;
   taler: string;
   groschen: string;
@@ -22,8 +24,10 @@ class App extends Component<object, object> {
       this.updateData = this.updateData.bind(this);
       this.returnToForm = this.returnToForm.bind(this);
       this.state = {
-        buyorsell: '',
-        itemname: '',
+        buyOrSell: '',
+        itemName: '',
+        itemMinecraftName: '',
+        itemNumber: '',
         amount: '',
         taler: '',
         groschen: '',
@@ -31,13 +35,13 @@ class App extends Component<object, object> {
       };
   }
 
-  updateData(buyorsell: string, itemname: string, amount: string, taler: string, groschen: string) {
-    this.setState({ buyorsell: buyorsell, itemname: itemname, amount: amount, taler: taler, groschen: groschen});
+  updateData(buyOrSell: string, itemName: string, itemMinecraftName: string, itemNumber: string, amount: string, taler: string, groschen: string) {
+    this.setState({ buyOrSell: buyOrSell, itemName: itemName, itemMinecraftName: itemMinecraftName, itemNumber: itemNumber, amount: amount, taler: taler, groschen: groschen});
+    console.log('itemname: ' + itemName)
   }
 
   returnToForm() {
     this.setState({newInputData: false});
-    console.log('works')
   }
 
   componentDidUpdate(prevProps: object, prevState: AppState) {
@@ -63,8 +67,10 @@ class App extends Component<object, object> {
           :
           < Col md={{ size: 8, offset: 2 }}>
             <Output
-              buyorsell={this.state.buyorsell}
-              itemname={this.state.itemname}
+              buyOrSell={this.state.buyOrSell}
+              itemName={this.state.itemName}
+              itemMinecraftName={this.state.itemMinecraftName}
+              itemNumber={this.state.itemNumber}
               amount={this.state.amount}
               taler={this.state.taler}
               groschen={this.state.groschen}

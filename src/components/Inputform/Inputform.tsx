@@ -1,18 +1,30 @@
 import './Inputform.css'
 import React, { Component, FormEvent } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
+import Select from 'react-select';
+import { ValueType } from 'react-select/src/types';
+import itemMinecraftNameOptions from '../Inputform/itemMinecraftNameOptions';
+
+type OptionType = { value: string; label: string };
 
 interface InputformProps {
-    updateData: (buyorsell: string, itemname: string, amount: string, taler: string, groschen: string) => void;
+    updateData: (buyOrSell: string, itemName: string, itemMinecraftName: string, itemNumber: string, amount: string, taler: string, groschen: string) => void;
 }
 
 interface InputformState {
-    buyorsell: string;
-    itemname: string;
+    buyOrSell: string;
+    itemName: string,
+    itemMinecraftName: string,
+    itemNumber: string,
     amount: string;
     taler: string;
     groschen: string;
 }
+
+const buyOrSellOptions = [
+    { value: 'buy', label: 'Kaufen' },
+    { value: 'sell', label: 'Verkaufen' }
+];
 
 class Inputform extends Component<InputformProps, InputformState> {
     state: InputformState;
@@ -20,9 +32,13 @@ class Inputform extends Component<InputformProps, InputformState> {
     constructor(props: InputformProps) {
         super(props);
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onitemMinecraftNameChange = this.onitemMinecraftNameChange.bind(this);
+        this.onBuyOrSellChange = this.onBuyOrSellChange.bind(this);
         this.state = {
-          buyorsell: '',
-          itemname: '',
+          buyOrSell: '',
+          itemName: '',
+          itemMinecraftName: '',
+          itemNumber: '',
           amount: '',
           taler: '',
           groschen: ''
@@ -31,38 +47,67 @@ class Inputform extends Component<InputformProps, InputformState> {
 
     onFormSubmit(event: FormEvent) {
         event.preventDefault();
-        this.props.updateData(this.state.buyorsell, this.state.itemname, this.state.amount, this.state.taler, this.state.groschen);
+        this.props.updateData(this.state.buyOrSell,
+            this.state.itemName,
+            this.state.itemMinecraftName,
+            this.state.itemNumber,
+            this.state.amount,
+            this.state.taler,
+            this.state.groschen);
+    }
+
+    onitemMinecraftNameChange(selectedOption: ValueType<OptionType>) {
+        const itemMinecraftName = (selectedOption as OptionType).label
+        const itemNumber = (selectedOption as OptionType).value
+        this.setState({itemMinecraftName: itemMinecraftName, itemNumber: itemNumber})
+    }
+
+    onBuyOrSellChange(selectedOption: ValueType<OptionType>) {
+        const buyOrSell = (selectedOption as OptionType).value
+        this.setState({buyOrSell: buyOrSell})
     }
 
     render() { 
         return (
             <Form onSubmit={this.onFormSubmit}>
-                <FormGroup id="select">
-                    <Label for="exampleSelect">Kaufen / Verkaufen</Label>
-                    <Input type="select" name="select" id="select" onChange={e => this.setState({ buyorsell: e.target.value })}>
-                        <option>Kaufen</option>
-                        <option>Verkaufen</option>
-                    </Input>
+                <FormGroup id="select-buyorsell">
+                    <Label for="buy-or-sell">Hier kann der Spieler:</Label>
+                    <Select
+                        id="buyorsell"
+                        options={buyOrSellOptions}
+                        onChange={(selectedOption: ValueType<OptionType>) => {this.onBuyOrSellChange(selectedOption)}}
+                        required>
+                    </Select>
+                </FormGroup>
+                <FormGroup id="select-itemMinecraftName">
+                    <Label for="item-minecraft-name">Minecraft Item:</Label>
+                    <Select
+                        id="item-minecraft-name"
+                        isSearchable
+                        options={itemMinecraftNameOptions}
+                        onChange={(selectedOption: ValueType<OptionType>) => {this.onitemMinecraftNameChange(selectedOption)}}
+                        required>
+                    </Select>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="itemname">Item-Name</Label>
-                    <Input name="itemname" id="itemname" placeholder="Itemname" onChange={e => this.setState({ itemname: e.target.value })}/>
+                    <Label for="itemName">Eigener Itemname:</Label>
+                    <Input name="itemName" id="itemName" placeholder="Eigener Item Name" onChange={e => this.setState({itemName : e.target.value })} required/>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="mengeninput">Menge</Label>
-                    <Input type="number" name="menge" id="mengeninput" placeholder="Menge der Items" onChange={e => this.setState({ amount: e.target.value })}/>
+                    <Label for="mengeninput">Menge:</Label>
+                    <Input type="number" name="menge" id="mengeninput" min="0" max="127" placeholder="Menge der Items" onChange={e => this.setState({ amount: e.target.value })} required/>
                 </FormGroup>
                 <Row form="true">
                     <Col md="6">
                         <FormGroup>
-                            <Label for="talerinput">Taler</Label>
-                            <Input type="number" name="taler" id="talerinput" placeholder="Anzahl an Talern" onChange={e => this.setState({ taler: e.target.value })}/>
+                            <Label for="talerinput">Taler:</Label>
+                            <Input type="number" name="taler" id="talerinput" min="0" placeholder="Anzahl an Talern" onChange={e => this.setState({ taler: e.target.value })} required/>
                         </FormGroup>
                     </Col>
                     <Col md="6">
                         <FormGroup>
-                            <Label for="groscheninput">Groschen</Label>
-                            <Input type="number" name="groschen" id="groscheninput" placeholder="Anzahl an Groschen" onChange={e => this.setState({ groschen: e.target.value })}/>
+                            <Label for="groscheninput">Groschen:</Label>
+                            <Input type="number" name="groschen" id="groscheninput" min="0" placeholder="Anzahl an Groschen" onChange={e => this.setState({ groschen: e.target.value })} required/>
                         </FormGroup>
                     </Col>
                 </Row>
