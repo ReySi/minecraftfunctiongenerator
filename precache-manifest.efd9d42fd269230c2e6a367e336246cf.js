@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c61a529642aef05dee4484b5bab53ede",
+    "revision": "f2e4f4178e350218a3025f3e843e5c37",
     "url": "/minecraftfunctiongenerator/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/minecraftfunctiongenerator/static/css/2.266e55a5.chunk.css"
   },
   {
-    "revision": "923ae293ffc2dd2af858",
+    "revision": "a8468e11b1b40f76caf1",
     "url": "/minecraftfunctiongenerator/static/css/main.dec4894f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/minecraftfunctiongenerator/static/js/2.afe0a12e.chunk.js"
   },
   {
-    "revision": "923ae293ffc2dd2af858",
-    "url": "/minecraftfunctiongenerator/static/js/main.45410c6e.chunk.js"
+    "revision": "a8468e11b1b40f76caf1",
+    "url": "/minecraftfunctiongenerator/static/js/main.4cd79850.chunk.js"
   },
   {
     "revision": "3cdc343a543ab6904c94",
